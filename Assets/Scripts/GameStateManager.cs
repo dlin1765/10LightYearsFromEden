@@ -33,6 +33,8 @@ public class GameStateManager : MonoBehaviour
         {
             case GameState.WakingUp:
                 FadeManager.Instance.StartFadeFromBlack(5f);
+                HelmetUIManager.Instance.TurnOffHelmetUI();
+                PlayerManager.Instance.TurnOffMovement();
                 break;
             case GameState.DayStart:
                 break;
