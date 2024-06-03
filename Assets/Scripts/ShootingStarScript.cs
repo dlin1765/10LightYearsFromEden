@@ -77,7 +77,6 @@ public class ShootingStarScript : MonoBehaviour
         float timer = 0f;
         Material actualStarMat = this.gameObject.GetComponent<MeshRenderer>().material;
         Material actualTrailMat = this.gameObject.transform.GetChild(0).GetComponent<ParticleSystemRenderer>().materials[1];
-        Debug.Log(actualTrailMat.name);
         Vector3 targetPosition = new Vector3(x, 250f, z);
         Vector3 startingPosition = transform.position;
 

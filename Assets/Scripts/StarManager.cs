@@ -92,7 +92,7 @@ public class StarManager : MonoBehaviour
             case 2:                                                                                                            // yellow  
                 break;
             case 3:
-                Debug.Log("Green spawned");
+           
                 temp = instance.GetComponent<ShootingStarScript>().Particles.GetComponent<ParticleSystemRenderer>().materials; // green
                 temp[1].SetColor("_Color", new Color(0.4f, 2, 0.24f) * intensity);
                 temp[1].SetColor("_EmissionColor", new Color(0.4f, 2, 0.24f));
