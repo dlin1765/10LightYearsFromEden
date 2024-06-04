@@ -15,4 +15,9 @@ public class HelmetSocket : MonoBehaviour
     {
         
     }
+
+    public void HelmetOn()
+    {
+
+    }
 }

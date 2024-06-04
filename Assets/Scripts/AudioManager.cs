@@ -23,4 +23,32 @@ public class AudioManager : MonoBehaviour
     {
         
     }
+    /*
+    public float Play(string name, Transform parent)
+    {
+        GameObject audio = System.Array.Find(sounds, sound => sound.name == name);
+
+        if (audio == null)
+        {
+            Debug.Log("Sound: " + name + " not found");
+            return 0;
+        }
+
+        return Instantiate(audio, parent, false).GetComponent<AudioSource>().clip.length;
+    }
+
+    public IEnumerator Play(string name, Transform parent, float delay)
+    {
+        GameObject audio = System.Array.Find(sounds, sound => sound.name == name);
+
+        if (audio == null)
+        {
+            Debug.Log("Sound: " + name + " not found");
+            yield break;
+        }
+
+        yield return new WaitForSeconds(delay);
+        GameObject prefab = Instantiate(audio, parent, false);
+    }
+    */
 }

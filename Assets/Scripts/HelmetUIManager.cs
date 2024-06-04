@@ -8,6 +8,9 @@ public class HelmetUIManager : MonoBehaviour
 
     public static HelmetUIManager Instance;
 
+    public bool consoleTask = false;
+    public bool fuelTask = false;
+
     private void Awake()
     {
         Instance = this;
@@ -46,5 +49,23 @@ public class HelmetUIManager : MonoBehaviour
         {
             transform.GetChild(i).gameObject.SetActive(false);
         }
+    }
+
+    public void TurnOnHelmetUI()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(true);
+        }
+    }
+
+    public void CompleteConsole()
+    {
+        consoleTask = true;
+    }
+    
+    public void CompleteFuel()
+    {
+        fuelTask = true;
     }
 }

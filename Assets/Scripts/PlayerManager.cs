@@ -21,11 +21,11 @@ public class PlayerManager : MonoBehaviour
 
     public void TurnOffMovement()
     {
-        Movement.GetComponent<LocomotionSystem>().enabled = false;
+        Movement.SetActive(false);
     }
 
     public void TurnOnMovement()
     {
-        Movement.GetComponent<LocomotionSystem>().enabled = true;
+        Movement.SetActive(true);
     }
 }
