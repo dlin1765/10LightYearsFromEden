@@ -23,23 +23,32 @@ public class AudioManager : MonoBehaviour
     {
         
     }
-    /*
-    public float Play(string name, Transform parent)
+    
+    public float Play(string name, Transform parent, float volume = 1.0f, bool playType = true)
     {
-        GameObject audio = System.Array.Find(sounds, sound => sound.name == name);
-
+        GameObject audio;
+        if(playType) // if its true look in the voicelines list else its a sound effect
+        {
+            audio = System.Array.Find(voiceLines, sound => sound.name == name);
+        }
+        else
+        {
+            audio = System.Array.Find(soundEffects, sound => sound.name == name);
+        }
+        
         if (audio == null)
         {
             Debug.Log("Sound: " + name + " not found");
             return 0;
         }
-
-        return Instantiate(audio, parent, false).GetComponent<AudioSource>().clip.length;
+        AudioSource temp = Instantiate(audio, parent, false).GetComponent<AudioSource>();
+        temp.volume = volume;
+        return temp.clip.length;
     }
-
+    /*
     public IEnumerator Play(string name, Transform parent, float delay)
     {
-        GameObject audio = System.Array.Find(sounds, sound => sound.name == name);
+        GameObject audio = System.Array.Find(soundEffects, sound => sound.name == name);
 
         if (audio == null)
         {

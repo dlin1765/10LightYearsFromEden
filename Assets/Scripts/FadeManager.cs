@@ -17,7 +17,6 @@ public class FadeManager : MonoBehaviour
     void Start()
     {
         BlackImage = transform.GetChild(0).GetChild(0).gameObject.GetComponent<Image>();
-       
     }
 
     public void StartFadeToBlack(float duration, float delay = 2f)

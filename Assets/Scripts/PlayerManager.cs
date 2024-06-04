@@ -8,6 +8,11 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     public static PlayerManager Instance;
     private GameObject Movement;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
         Movement = transform.GetChild(1).gameObject;

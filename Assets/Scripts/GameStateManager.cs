@@ -9,7 +9,7 @@ public class GameStateManager : MonoBehaviour
     public GameState currentGameState;
     public static GameStateManager Instance;
 
-    public int dayCount = 1;
+    public int dayCount = 0;
     public static event Action<GameState> gameStateChanged;
 
     public enum GameState
@@ -32,11 +32,13 @@ public class GameStateManager : MonoBehaviour
         switch (targetGameState)
         {
             case GameState.WakingUp:
+                dayCount = +1;
                 FadeManager.Instance.StartFadeFromBlack(5f);
-                HelmetUIManager.Instance.TurnOffHelmetUI();
+                //HelmetUIManager.Instance.TurnOffHelmetUI();
                 PlayerManager.Instance.TurnOffMovement();
                 break;
             case GameState.DayStart:
+                PlayerManager.Instance.TurnOnMovement();
                 break;
             case GameState.DayTasksDone:
                 break;

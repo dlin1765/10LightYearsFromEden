@@ -10,6 +10,7 @@ public class HelmetUIManager : MonoBehaviour
 
     public bool consoleTask = false;
     public bool fuelTask = false;
+    public bool helmetOn = false;
 
     private void Awake()
     {
@@ -20,9 +21,9 @@ public class HelmetUIManager : MonoBehaviour
     private void GameStateManagerGameStateChanged(GameStateManager.GameState state)
     {
         //turn off the helmet UI 
-        if (state != GameStateManager.GameState.WakingUp)
+        if (state == GameStateManager.GameState.WakingUp)
         {
-            //TurnOffHelmetUI();
+
         }
         else
         {
@@ -45,6 +46,7 @@ public class HelmetUIManager : MonoBehaviour
 
     public void TurnOffHelmetUI()
     {
+        helmetOn = false;
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).gameObject.SetActive(false);
@@ -53,6 +55,7 @@ public class HelmetUIManager : MonoBehaviour
 
     public void TurnOnHelmetUI()
     {
+        helmetOn = true;
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).gameObject.SetActive(true);
