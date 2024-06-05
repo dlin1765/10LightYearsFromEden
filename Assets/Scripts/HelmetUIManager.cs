@@ -27,7 +27,8 @@ public class HelmetUIManager : MonoBehaviour
         if (state == GameStateManager.GameState.DayStart)
         {
             Debug.Log("reset the helm text ui to text");
-            UIElements[0].GetComponent<TextMeshProUGUI>().text = "Tasks";
+            UIElements[0].GetComponent<TextMeshProUGUI>().text = "Day " + GameStateManager.Instance.dayCount + ":" + "\nTasks";
+
         }
         else
         {
@@ -98,7 +99,7 @@ public class HelmetUIManager : MonoBehaviour
             if(GameStateManager.Instance.currentGameState != GameStateManager.GameState.DayTasksDone)
             {
                 GameStateManager.Instance.ChangeGameState(GameStateManager.GameState.DayTasksDone);
-                UIElements[0].GetComponent<TextMeshProUGUI>().text = "Tasks done! Head back to the Cryopod!";
+                UIElements[0].GetComponent<TextMeshProUGUI>().text = "Day " + GameStateManager.Instance.dayCount + ":" + "\nTasks done! Head back to the Cryopod!";
             }
         }
     }
