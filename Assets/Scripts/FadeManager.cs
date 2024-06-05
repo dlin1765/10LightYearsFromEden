@@ -26,13 +26,12 @@ public class FadeManager : MonoBehaviour
 
     private IEnumerator fToBlack(float duration, float delay)
     {
-        float changeAmount = 1.0f / (duration * 60);
         yield return new WaitForSeconds(delay);
         float timer = 0f;
-        while (duration >= timer)
+        while (timer<duration)
         {
             timer += Time.deltaTime;
-            BlackImage.color = new Color(0f, 0f, 0f, BlackImage.color.a + changeAmount);
+            BlackImage.color = new Color(0f, 0f, 0f, Mathf.Lerp(0f, 1f, timer / duration));
             yield return null;
         }
     }
@@ -44,13 +43,12 @@ public class FadeManager : MonoBehaviour
 
     private IEnumerator FfromBlack(float duration, float delay = 2f)
     {
-        float changeAmount = 1.0f / (duration * 60);
         yield return new WaitForSeconds(delay);
         float timer = 0f;
-        while(duration >= timer)
+        while(timer < duration)
         {
             timer += Time.deltaTime;
-            BlackImage.color = new Color(0f, 0f, 0f, BlackImage.color.a - changeAmount);
+            BlackImage.color = new Color(0f, 0f, 0f, Mathf.Lerp(1f, 0f, timer/duration));
             yield return null;
         }
     }
