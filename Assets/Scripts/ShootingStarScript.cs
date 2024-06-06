@@ -38,7 +38,7 @@ public class ShootingStarScript : MonoBehaviour
         timeToLive = Random.Range(1.5f, 2.0f);
         speed = Random.Range(2.0f, 3.0f);
 
-        t = Instantiate(Target, new Vector3(x, 250f, z), Quaternion.identity);
+        t = Instantiate(Target, new Vector3(x, 300f, z), Quaternion.identity);
         StartCoroutine(StartMetorite2());
         //StartCoroutine(PushMetorite());
 
@@ -77,7 +77,7 @@ public class ShootingStarScript : MonoBehaviour
         float timer = 0f;
         Material actualStarMat = this.gameObject.GetComponent<MeshRenderer>().material;
         Material actualTrailMat = this.gameObject.transform.GetChild(0).GetComponent<ParticleSystemRenderer>().materials[1];
-        Vector3 targetPosition = new Vector3(x, 250f, z);
+        Vector3 targetPosition = new Vector3(x, 300f, z);
         Vector3 startingPosition = transform.position;
 
         while (transform.position != targetPosition)

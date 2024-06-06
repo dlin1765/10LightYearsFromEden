@@ -73,7 +73,7 @@ public class StarManager : MonoBehaviour
     private IEnumerator SpawnStars()
     {
         int colorNum = Random.Range(0, 6);
-        a = new Vector3(Random.Range(-450.0f, 450.0f), 250f, Random.Range(-450.0f, 450.0f)); //
+        a = new Vector3(Random.Range(-450.0f, 450.0f), 300f, Random.Range(-450.0f, 450.0f)); //
         GameObject instance = Instantiate(Star, a, Quaternion.identity);
         Material[] temp;
         

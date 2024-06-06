@@ -9,6 +9,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private GameObject[] soundEffects, voiceLines, ambientSounds;
     public List<AudioSource> currentSounds;
 
+    // GameObject currentLoop = null; // have this line for scripts where you want audio to play
+    // currentLoop = AudioManager.instance.LerpLoopable(loopName, transform, 2.0f); // copy paste this line when you want a loopable sound to play 
+    // StartCoroutine(currentLoop.GetComponent<Loopable>().LerpDestroySelf(0.0f, 2.0f)); // copy paste this line when you want to kill a loopable sound
     private void Awake()
     {
         Instance = this;
