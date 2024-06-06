@@ -59,6 +59,7 @@ public class AlarmManager : MonoBehaviour
         else
         {
             // start extra audio here 
+            HelmetUIManager.Instance.SetMeditationActive();
         }
     }
 

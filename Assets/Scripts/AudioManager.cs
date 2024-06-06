@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
     public static AudioManager Instance;
 
     [SerializeField] private GameObject[] soundEffects, voiceLines, ambientSounds;
+    public List<AudioSource> currentSounds;
 
     private void Awake()
     {
@@ -44,6 +45,14 @@ public class AudioManager : MonoBehaviour
         AudioSource temp = Instantiate(audio, parent, false).GetComponent<AudioSource>();
         temp.volume = volume;
         return temp.clip.length;
+    }
+
+    public void deafenVolume(float volume = 0.5f)
+    {
+        foreach(AudioSource source in currentSounds)
+        {
+            source.volume = volume;
+        }
     }
     /*
     public IEnumerator Play(string name, Transform parent, float delay)

@@ -115,7 +115,17 @@ public class HelmetUIManager : MonoBehaviour
     }
 
 
-    
+    public void SetTasksNotActive()
+    {
+        foreach(GameObject x in UIElements)
+        {
+            x.SetActive(false);
+        }
+        foreach(GameObject y in TaskList)
+        {
+            y.SetActive(false);
+        }
+    }
 
 
     public void CompleteFuel()
@@ -170,6 +180,11 @@ public class HelmetUIManager : MonoBehaviour
         }
     }
 
+    public void MeditationPressed()
+    {
+        GameStateManager.Instance.ChangeGameState(GameStateManager.GameState.MeditationCutscene);
+    }
+
     public void SetTogglesToFalse()
     {
         UIElements[1].GetComponent<Toggle>().isOn = false;
@@ -195,6 +210,11 @@ public class HelmetUIManager : MonoBehaviour
                 UIElements[0].GetComponent<TextMeshProUGUI>().text = "Day " + GameStateManager.Instance.dayCount + ":" + "\nTasks done! Return helmet and head back to hibernation";
             }
         }
+    }
+
+    public void SetMeditationActive()
+    {
+        TaskList[TaskList.Count - 4].SetActive(true);
     }
     
 }

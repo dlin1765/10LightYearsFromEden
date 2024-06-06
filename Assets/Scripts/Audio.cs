@@ -11,6 +11,7 @@ public class Audio : MonoBehaviour
     private IEnumerator DestroySelf(float delay)
     {
         yield return new WaitForSeconds(delay);
+        AudioManager.Instance.currentSounds.Remove(this.GetComponent<AudioSource>());
         Destroy(this.gameObject);
     }
 }

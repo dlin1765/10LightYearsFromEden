@@ -58,6 +58,37 @@ public class FadeManager : MonoBehaviour
         }
     }
 
+    public void halfFade()
+    {
+        StartCoroutine(HalfwayFadeToBlack());
+    }
+
+    public void OtherHalfFade()
+    {
+        StartCoroutine(OtherHalfwayBlack());
+    }
+    private IEnumerator HalfwayFadeToBlack(float duration = 2f)
+    {
+        float timer = 0f;
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            BlackImage.color = new Color(0f, 0f, 0f, Mathf.Lerp(0f, 0.7f, timer / duration));
+            yield return null;
+        }
+    }
+
+    private IEnumerator OtherHalfwayBlack(float duration = 8f)
+    {
+        float timer = 0f;
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            BlackImage.color = new Color(0f, 0f, 0f, Mathf.Lerp(.7f, 1f, timer / duration));
+            yield return null;
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {

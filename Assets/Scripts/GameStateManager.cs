@@ -11,7 +11,11 @@ public class GameStateManager : MonoBehaviour
 
     public int dayCount = 0;
     public static event Action<GameState> gameStateChanged;
-    private Vector3 WakeUpPos = new Vector3(0f, 0f, 0f);
+    private Vector3 WakeUpPos = new Vector3(0f, 0f, -1f);
+    public GameObject FakeSkybox;
+
+    [SerializeField] private GameObject explosionShip;
+ 
 
     public enum GameState
     {
@@ -20,6 +24,7 @@ public class GameStateManager : MonoBehaviour
         DayTasksDone,
         SleepTime,
         MeditationCutscene,
+        FinalCutscene,
         GameOverBad,
     }
 
@@ -51,6 +56,9 @@ public class GameStateManager : MonoBehaviour
                 FadeManager.Instance.StartFadeToBlack(7f);
                 break;
             case GameState.MeditationCutscene:
+                StartCoroutine(MeditationCutscene());
+                break;
+            case GameState.FinalCutscene:
                 break;
             case GameState.GameOverBad:
                 break;
@@ -61,6 +69,29 @@ public class GameStateManager : MonoBehaviour
     private void Start()
     {
         ChangeGameState(GameState.WakingUp);
+    }
+
+    private IEnumerator MeditationCutscene()
+    {
+        // fade halfway
+        FadeManager.Instance.halfFade();
+        PlayerManager.Instance.TurnOffMovement();
+        PlayerManager.Instance.StartFloating();
+        HelmetUIManager.Instance.SetTasksNotActive();
+        yield return new WaitForSeconds(10f);
+        Debug.Log("EXPLOSION");
+        explosionShip.SetActive(true);
+        FadeManager.Instance.OtherHalfFade();
+        yield return new WaitForSeconds(10f);
+        PlayerManager.Instance.SetPlayerFinal();
+        ChangeGameState(GameState.FinalCutscene);
+        FadeManager.Instance.StartFadeFromBlack(5f);
+        yield return new WaitForSeconds(5f);
+        PlanetScaler.Instance.StartPlanetFade();
+        yield return new WaitForSeconds(10f);
+        FakeSkybox.GetComponent<FadeSkyBox>().StartFadeOutSkybox();
+
+        // lower volume of sounds
     }
 
     // Update is called once per frame

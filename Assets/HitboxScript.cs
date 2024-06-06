@@ -31,7 +31,7 @@ public class HitboxScript : MonoBehaviour
             }
             else
             {
-                AlarmManager.Instance.StartAlarm(true);
+                AlarmManager.Instance.StartAlarm(GameStateManager.Instance.dayCount < 10);
             }
         }
     }

@@ -8,6 +8,7 @@ public class PlayerManager : MonoBehaviour
     // Start is called before the first frame update
     public static PlayerManager Instance;
     private GameObject Movement;
+    private Vector3 FinalPos = new Vector3(0, 0, 50f);
 
     private void Awake()
     {
@@ -32,5 +33,30 @@ public class PlayerManager : MonoBehaviour
     public void TurnOnMovement()
     {
         Movement.SetActive(true);
+    }
+
+    public void StartFloating()
+    {
+        this.gameObject.AddComponent<Rigidbody>().useGravity = false;
+        StartCoroutine(SitDown());
+    }
+    private IEnumerator SitDown()
+    {
+        float timer = 0f;
+        float duration = 3f;
+        while(timer < duration)
+        {
+            transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, transform.position.y - 0.5f, timer / duration), transform.position.z);
+            yield return null;
+        }
+        Movement.transform.GetChild(1).GetComponent<UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets.DynamicMoveProvider>().useGravity = false;
+    }
+    
+    public void SetPlayerFinal()
+    {
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        transform.position = FinalPos;
+        transform.rotation = new Quaternion(0, 0, 0, 0);
     }
 }
