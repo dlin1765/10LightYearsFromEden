@@ -34,6 +34,11 @@ public class FadeManager : MonoBehaviour
             BlackImage.color = new Color(0f, 0f, 0f, Mathf.Lerp(0f, 1f, timer / duration));
             yield return null;
         }
+        if(GameStateManager.Instance.currentGameState == GameStateManager.GameState.SleepTime)
+        {
+            yield return new WaitForSeconds(3f);
+            GameStateManager.Instance.ChangeGameState(GameStateManager.GameState.WakingUp);
+        }
     }
 
     public void StartFadeFromBlack(float duration, float delay = 2f)

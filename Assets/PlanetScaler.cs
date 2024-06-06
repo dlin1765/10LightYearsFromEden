@@ -19,11 +19,11 @@ public class PlanetScaler : MonoBehaviour
             int day = GameStateManager.Instance.dayCount;
             if (day % 10 == 0)
             {
-                transform.localScale.Set(1f, 1f, 1f);
+                transform.localScale = new Vector3(1f, 1f, 1f);
             }
             else
             {
-                transform.localScale.Set(1f + 0.5f * (day - 1), 1f + 0.5f * (day - 1), 1f + 0.5f * (day - 1));
+                transform.localScale = new Vector3(1f + 0.5f * (day%10), 1f + 0.5f * (day%10), 1f + 0.5f * (day%10));
             }
         }
     }
@@ -37,6 +37,5 @@ public class PlanetScaler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }

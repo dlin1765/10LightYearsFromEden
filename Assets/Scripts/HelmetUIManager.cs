@@ -12,9 +12,14 @@ public class HelmetUIManager : MonoBehaviour
     public bool consoleTask = false;
     public bool fuelTask = false;
     public bool helmetOn = false;
+    public bool journalWritten = false;
+    public bool helmetReturned = true;
 
-    [SerializeField] private List<GameObject> UIElements;
+    [SerializeField] private List<GameObject> UIElements, TaskList;
+    [SerializeField] private GameObject TaskElements;
+    [SerializeField] private GameObject ConsoleObj;
 
+    private TextMeshProUGUI ConsoleText;
     private void Awake()
     {
         Instance = this;
@@ -24,11 +29,22 @@ public class HelmetUIManager : MonoBehaviour
     private void GameStateManagerGameStateChanged(GameStateManager.GameState state)
     {
         //turn off the helmet UI 
-        if (state == GameStateManager.GameState.DayStart)
+        if(state == GameStateManager.GameState.WakingUp)
+        {
+           
+        }
+        else if (state == GameStateManager.GameState.DayStart)
         {
             Debug.Log("reset the helm text ui to text");
             UIElements[0].GetComponent<TextMeshProUGUI>().text = "Day " + GameStateManager.Instance.dayCount + ":" + "\nTasks";
+            SetTogglesToFalse();
 
+        }
+        else if(state == GameStateManager.GameState.DayTasksDone)
+        {
+            // helmet prompt and journal prompt active
+            TaskList[TaskList.Count - 1].SetActive(true);
+            TaskList[TaskList.Count - 3].SetActive(true);
         }
         else
         {
@@ -44,6 +60,12 @@ public class HelmetUIManager : MonoBehaviour
         {
             UIElements.Add(transform.GetChild(0).GetChild(i).gameObject);
         }
+
+        for (int i = 0; i < TaskElements.transform.GetChild(0).childCount; i++)
+        {
+            TaskList.Add(TaskElements.transform.GetChild(0).GetChild(i).gameObject);
+        }
+        ConsoleText = ConsoleObj.GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -81,13 +103,84 @@ public class HelmetUIManager : MonoBehaviour
     public void CompleteConsole()
     {
         consoleTask = true;
+        if(ConsoleText.text.Length > 0)
+        {
+            ConsoleText.text = "";
+        }
+        else
+        {
+            ConsoleText.text = "Console:\nProgress to Eden: " + (0 + 10 * (GameStateManager.Instance.dayCount % 10)) + "%\nTime to Destination: " + (10 - (1*(GameStateManager.Instance.dayCount%10)));
+        }
         UpdateUI();
     }
+
+
     
+
+
     public void CompleteFuel()
     {
         fuelTask = true;
         UpdateUI();
+    }
+
+    public void TurnOffDayOverTasks()
+    {
+        TaskList[TaskList.Count - 3].SetActive(false);
+        TaskList[TaskList.Count - 2].SetActive(false);
+        TaskList[TaskList.Count - 1].SetActive(false);
+    }
+
+    public void WriteInJournal()
+    {
+        journalWritten = true;
+        TaskList[TaskList.Count - 1].SetActive(false);
+        if (journalWritten && helmetReturned)
+        {
+            TaskList[TaskList.Count - 2].SetActive(true);
+        }
+    }
+
+    public void GoToHibernation()
+    {
+        TurnOffDayOverTasks();
+        ResetTasks();
+        GameStateManager.Instance.ChangeGameState(GameStateManager.GameState.SleepTime);
+    }
+
+    public void HelmetReturned()
+    {
+        helmetReturned = true;
+        if(GameStateManager.Instance.currentGameState == GameStateManager.GameState.DayTasksDone)
+        {
+            TaskList[TaskList.Count - 3].SetActive(false);
+            if (journalWritten && helmetReturned)
+            {
+                TaskList[TaskList.Count - 2].SetActive(true);
+            }
+        }
+    }
+
+    public void HelmetTaken()
+    {
+        helmetReturned = false;
+        if(GameStateManager.Instance.currentGameState == GameStateManager.GameState.DayTasksDone)
+        {
+            TaskList[TaskList.Count - 3].SetActive(true);
+        }
+    }
+
+    public void SetTogglesToFalse()
+    {
+        UIElements[1].GetComponent<Toggle>().isOn = false;
+        UIElements[2].GetComponent<Toggle>().isOn = false;
+    }
+
+    private void ResetTasks()
+    {
+        ConsoleText.text = "";
+        consoleTask = false;
+        fuelTask = false;
     }
 
     public void UpdateUI()
@@ -99,7 +192,7 @@ public class HelmetUIManager : MonoBehaviour
             if(GameStateManager.Instance.currentGameState != GameStateManager.GameState.DayTasksDone)
             {
                 GameStateManager.Instance.ChangeGameState(GameStateManager.GameState.DayTasksDone);
-                UIElements[0].GetComponent<TextMeshProUGUI>().text = "Day " + GameStateManager.Instance.dayCount + ":" + "\nTasks done! Head back to the Cryopod!";
+                UIElements[0].GetComponent<TextMeshProUGUI>().text = "Day " + GameStateManager.Instance.dayCount + ":" + "\nTasks done! Return helmet and head back to hibernation";
             }
         }
     }

@@ -28,11 +28,11 @@ public class OminiousVoice : MonoBehaviour
             }
             else if(day > 1 && day < 10)
             {
-
+                StartCoroutine(WaitForVoiceline(3f));
             }
             else if(day >= 10)
             {
-
+                StartCoroutine(WaitForVoiceline(10f));
             }
         }
         else
