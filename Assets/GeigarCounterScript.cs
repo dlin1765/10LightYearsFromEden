@@ -11,7 +11,7 @@ public class GeigarCounterScript : MonoBehaviour
     private GameObject counterCanvas;
     void Start()
     {
-        counterCanvas = transform.GetChild(0).gameObject;
+        counterCanvas = transform.GetChild(1).gameObject;
         RadCounterText = RadTextObj.GetComponent<TextMeshProUGUI>();
     }
 

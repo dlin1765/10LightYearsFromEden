@@ -18,8 +18,10 @@ public class HelmetUIManager : MonoBehaviour
     [SerializeField] private List<GameObject> UIElements, TaskList;
     [SerializeField] private GameObject TaskElements;
     [SerializeField] private GameObject ConsoleObj;
+    [SerializeField] private GameObject VentCheck;
 
     private TextMeshProUGUI ConsoleText;
+    private ConsoleScript ConsoleUI;
     private void Awake()
     {
         Instance = this;
@@ -36,7 +38,15 @@ public class HelmetUIManager : MonoBehaviour
         else if (state == GameStateManager.GameState.DayStart)
         {
             Debug.Log("reset the helm text ui to text");
-            UIElements[0].GetComponent<TextMeshProUGUI>().text = "Day " + GameStateManager.Instance.dayCount + ":" + "\nTasks";
+            if(GameStateManager.Instance.dayCount == 3)
+            {
+                UIElements[0].GetComponent<TextMeshProUGUI>().text = "Day " + 23710 + ":" + "\nTasks";
+            }
+            else
+            {
+                UIElements[0].GetComponent<TextMeshProUGUI>().text = "Day " + GameStateManager.Instance.dayCount + ":" + "\nTasks";
+            }
+            
             SetTogglesToFalse();
 
         }
@@ -66,6 +76,7 @@ public class HelmetUIManager : MonoBehaviour
             TaskList.Add(TaskElements.transform.GetChild(0).GetChild(i).gameObject);
         }
         ConsoleText = ConsoleObj.GetComponent<TextMeshProUGUI>();
+        ConsoleUI = VentCheck.GetComponent<ConsoleScript>();
     }
 
     // Update is called once per frame
@@ -79,7 +90,7 @@ public class HelmetUIManager : MonoBehaviour
         helmetOn = false;
         if (HitboxScript.Instance.playerInUnsafeZone)
         {
-            AlarmManager.Instance.StartAlarm(GameStateManager.Instance.dayCount < 10);
+            AlarmManager.Instance.StartAlarm(ConsoleUI.isVentOn);
         }
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -126,6 +137,7 @@ public class HelmetUIManager : MonoBehaviour
             y.SetActive(false);
         }
     }
+
 
 
 

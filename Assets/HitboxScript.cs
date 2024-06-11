@@ -7,7 +7,8 @@ public class HitboxScript : MonoBehaviour
     // Start is called before the first frame update
     public static HitboxScript Instance;
     public bool playerInUnsafeZone = false;
-
+    public GameObject Console;
+    private ConsoleScript ConsoleUI;
     private void Awake()
     {
         Instance = this;
@@ -17,6 +18,11 @@ public class HitboxScript : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void Start()
+    {
+        ConsoleUI = Console.GetComponent<ConsoleScript>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,7 +37,7 @@ public class HitboxScript : MonoBehaviour
             }
             else
             {
-                AlarmManager.Instance.StartAlarm(GameStateManager.Instance.dayCount < 10);
+                AlarmManager.Instance.StartAlarm(ConsoleUI.isVentOn);
             }
         }
     }

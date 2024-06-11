@@ -59,4 +59,21 @@ public class PlayerManager : MonoBehaviour
         transform.position = FinalPos;
         transform.rotation = new Quaternion(0, 0, 0, 0);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Finish")
+        {
+            Debug.Log("door hitbox detected");
+            other.GetComponent<DoorOpenClose>().StartOpen();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Finish")
+        {
+            other.GetComponent<DoorOpenClose>().StartClose();
+        }
+    }
 }

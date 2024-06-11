@@ -5,12 +5,9 @@ using UnityEngine;
 public class DoorOpenClose : MonoBehaviour
 {
     // Start is called before the first frame update
-    private float x, z, y;
+
     void Start()
     {
-        x = transform.position.x;
-        z = transform.position.z;
-        y = transform.position.y;
     }
 
     // Update is called once per frame
@@ -19,33 +16,33 @@ public class DoorOpenClose : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+
+    public void StartOpen()
     {
-        if (other.gameObject.tag == "Player")
-        {
-            StartCoroutine(StartOpenCloseDoor(4.5f));
-        }
+        StartCoroutine(StartOpenCloseDoor(4.5f));
+    }
+
+    public void StartClose()
+    {
+        StartCoroutine(StartOpenCloseDoor(1.5f));
     }
 
     private IEnumerator StartOpenCloseDoor(float target)
     {
+        Debug.Log("should be going up");
         float timer = 0;
         float duration = 1.5f;
-        y = transform.position.y;
+        Vector3 startPos = transform.localPosition;
+        Vector3 targetPos = new Vector3(transform.localPosition.x, target, transform.localPosition.z);
 
         while(timer < duration)
         {
-            transform.position = new Vector3(x, Mathf.Lerp(y, target, timer / duration), z);
+            transform.localPosition = Vector3.Lerp(startPos, targetPos, timer / duration);
+            timer += Time.deltaTime;
             yield return null;
         }
+        transform.localPosition = targetPos;
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-
-        if (other.gameObject.tag == "Player")
-        {
-            StartCoroutine(StartOpenCloseDoor(1.5f));
-        }
-    }
+    
 }
