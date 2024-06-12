@@ -42,11 +42,14 @@ public class FuelCellScript : MonoBehaviour
 
     public void BottomHit()
     {
-        if(NumBatteries >= BatteryReq)
+        if(lockedPosition == false)
         {
-            // fuel task done here
-            Debug.Log("Fuel task done");
-            HelmetUIManager.Instance.CompleteFuel();
+            if (NumBatteries >= BatteryReq)
+            {
+                // fuel task done here
+                Debug.Log("Fuel task done");
+                HelmetUIManager.Instance.CompleteFuel();
+            }
         }
     }
 

@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BottomHitScript : MonoBehaviour
+public class tempscript : MonoBehaviour
 {
     // Start is called before the first frame update
-    private FuelCellScript parentObject;
     void Start()
     {
-        parentObject = transform.parent.gameObject.GetComponent<FuelCellScript>();
+        
     }
 
     // Update is called once per frame
@@ -16,13 +15,8 @@ public class BottomHitScript : MonoBehaviour
     {
         
     }
-    
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Stopper"))
-        {
-            parentObject.BottomHit();
-        }
+        Debug.Log("entered trigger");
     }
-  
 }

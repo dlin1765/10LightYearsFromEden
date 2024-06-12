@@ -37,6 +37,7 @@ public class HelmetUIManager : MonoBehaviour
         }
         else if (state == GameStateManager.GameState.DayStart)
         {
+            journalWritten = false;
             Debug.Log("reset the helm text ui to text");
             if(GameStateManager.Instance.dayCount == 3)
             {
@@ -137,10 +138,6 @@ public class HelmetUIManager : MonoBehaviour
             y.SetActive(false);
         }
     }
-
-
-
-
 
     public void CompleteFuel()
     {

@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class FuelCellManager : MonoBehaviour
 {
+
     [SerializeField] private GameObject FuelCellPrefab;
+    private List<GameObject> fuelCellList = new List<GameObject>();
 
     private void Awake()
     {
@@ -17,9 +19,9 @@ public class FuelCellManager : MonoBehaviour
         //turn off the helmet UI 
         if (state == GameStateManager.GameState.WakingUp)
         {
-            for(int i = 0; i < transform.childCount; i++)
+            for(int i = 0; i < fuelCellList.Count; i++)
             {
-                Destroy(transform.GetChild(i));
+                Destroy(fuelCellList[i]);
             }
             SpawnFuelCell();
         }
@@ -60,9 +62,12 @@ public class FuelCellManager : MonoBehaviour
     }
     private void SpawnFuelCell()
     {
+        fuelCellList.Clear();
         GameObject clone1 = Instantiate(FuelCellPrefab, transform, false);
         clone1.transform.localPosition = new Vector3(0f, 0f, -.5f);
+        fuelCellList.Add(clone1);
         GameObject clone2 = Instantiate(FuelCellPrefab, transform, false);
         clone2.transform.localPosition = new Vector3(0f, 0f, 0.5f);
+        fuelCellList.Add(clone2);
     }
 }
