@@ -30,7 +30,6 @@ public class HitboxScript : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             playerInUnsafeZone = true;
-            Debug.Log("player touched collider");
             if (HelmetUIManager.Instance.helmetOn)
             {
                 Debug.Log("has helmet on proceed");

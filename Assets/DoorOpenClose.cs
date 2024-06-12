@@ -29,7 +29,6 @@ public class DoorOpenClose : MonoBehaviour
 
     private IEnumerator StartOpenCloseDoor(float target)
     {
-        Debug.Log("should be going up");
         float timer = 0;
         float duration = 1.5f;
         Vector3 startPos = transform.localPosition;

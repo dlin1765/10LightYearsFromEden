@@ -64,7 +64,6 @@ public class PlayerManager : MonoBehaviour
     {
         if (other.gameObject.tag == "Finish")
         {
-            Debug.Log("door hitbox detected");
             other.GetComponent<DoorOpenClose>().StartOpen();
         }
     }
