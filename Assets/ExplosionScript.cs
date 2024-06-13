@@ -34,8 +34,8 @@ public class ExplosionScript : MonoBehaviour
 
     private IEnumerator StartExplosion()
     {
-        
-        foreach(Rigidbody rb in shipPartsList)
+        AudioManager.Instance.Play("sfx_explosion", transform, 1.0f, false);
+        foreach (Rigidbody rb in shipPartsList)
         {
             rb.AddExplosionForce(explosionForce, ExplosionSource.transform.position, radius); 
         }

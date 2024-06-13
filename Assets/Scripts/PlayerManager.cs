@@ -46,7 +46,7 @@ public class PlayerManager : MonoBehaviour
         float duration = 3f;
         while(timer < duration)
         {
-            transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, transform.position.y - 0.5f, timer / duration), transform.position.z);
+            transform.position = new Vector3(transform.position.x, Mathf.Lerp(transform.position.y, transform.position.y - 0.8f, timer / duration), transform.position.z);
             yield return null;
         }
         Movement.transform.GetChild(1).GetComponent<UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets.DynamicMoveProvider>().useGravity = false;

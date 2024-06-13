@@ -15,8 +15,16 @@ public class GameStateManager : MonoBehaviour
     public GameObject FakeSkybox;
 
     [SerializeField] private GameObject explosionShip;
- 
 
+    public bool FuelCellDoorHint = false;
+    public bool GeigarCounterDiscovered = false;
+    public bool SeenHallucination = false;
+    public bool SkyboxGlitchSeen = false;
+    public bool ClickedSystemButton = false;
+    public bool HelmetReassurances = false;
+    public bool HelmetDayGlitch = false;
+
+    GameObject currentLoop = null;
     public enum GameState
     {
         WakingUp,
@@ -69,6 +77,16 @@ public class GameStateManager : MonoBehaviour
     private void Start()
     {
         ChangeGameState(GameState.WakingUp);
+        TurnOnShipSound();
+    }
+
+    public void TurnOffShipSound()
+    {
+        StartCoroutine(currentLoop.GetComponent<Loopable>().LerpDestroySelf(0.0f, 0.0f));
+    }
+    public void TurnOnShipSound()
+    {
+        currentLoop = AudioManager.Instance.LerpLoopable("sfx_shipambience", PlayerManager.Instance.transform, 1.0f);
     }
 
     private IEnumerator MeditationCutscene()
@@ -108,9 +126,11 @@ public class GameStateManager : MonoBehaviour
     private IEnumerator StartGlitch()
     {
         AlarmManager.Instance.StartLightsOff(0f, true);
-        // play power down sound
+        TurnOffShipSound();
+        AudioManager.Instance.Play("sfx_powerdown", PlayerManager.Instance.transform, 1.0f, false);
         yield return new WaitForSeconds(3f);
         // play helmet glitch sound 
+        GameObject otherLoop = AudioManager.Instance.LerpLoopable("sfx_helmetglitching", PlayerManager.Instance.transform, 1.0f);
         int i = 0;
         while(i < 10)
         {
@@ -120,7 +140,10 @@ public class GameStateManager : MonoBehaviour
             FakeSkybox.SetActive(true);
             yield return new WaitForSeconds(UnityEngine.Random.Range(0.1f, 0.3f));
         }
+        StartCoroutine(otherLoop.GetComponent<Loopable>().LerpDestroySelf(0.0f, 0.0f));
         AlarmManager.Instance.StartLightsOff(0f, false);
+        TurnOnShipSound();
+        AudioManager.Instance.Play("sfx_lightsflickeron", PlayerManager.Instance.transform, 1.0f, false);
         //stop helmet glitch sound and play power up sound
     }
 }

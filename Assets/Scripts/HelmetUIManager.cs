@@ -48,9 +48,11 @@ public class HelmetUIManager : MonoBehaviour
             if(GameStateManager.Instance.dayCount == 3)
             {
                 UIElements[0].GetComponent<TextMeshProUGUI>().text = "Day " + 23710 + ":" + "\nTasks";
+                GameStateManager.Instance.HelmetDayGlitch = true;
             }
-            else if(PoisonDiscovered)
+            else if(GameStateManager.Instance.SkyboxGlitchSeen)
             {
+                GameStateManager.Instance.HelmetReassurances = true;
                 UIElements[0].GetComponent<TextMeshProUGUI>().text = "Day " + GameStateManager.Instance.dayCount + ":" + "\nTasks\n"+AvoidancePhrases[Random.Range(0, AvoidancePhrases.Count-1)];
             }
             else
@@ -107,6 +109,7 @@ public class HelmetUIManager : MonoBehaviour
     public void TurnOffHelmetUI()
     {
         helmetOn = false;
+        AudioManager.Instance.Play("sfx_itemequip", transform, 1.0f, false);
         if (HitboxScript.Instance.playerInUnsafeZone)
         {
             AlarmManager.Instance.StartAlarm(ConsoleUI.isVentOn);
@@ -120,6 +123,7 @@ public class HelmetUIManager : MonoBehaviour
     public void TurnOnHelmetUI()
     {
         helmetOn = true;
+        AudioManager.Instance.Play("sfx_itemequip", transform, 1.0f, false);
         if (HitboxScript.Instance.playerInUnsafeZone)
         {
             AlarmManager.Instance.StopAlarm();
@@ -136,15 +140,18 @@ public class HelmetUIManager : MonoBehaviour
         if(ConsoleText.text.Length > 0)
         {
             ConsoleText.text = "";
+            AudioManager.Instance.Play("sfx_consoleoff", transform, 1.0f, false);
         }
         else
         {
+            AudioManager.Instance.Play("sfx_consoleon", transform, 1.0f, false);
             ConsoleText.text = "Console:\nProgress to Eden: " + (0 + 10 * (GameStateManager.Instance.dayCount % 10)) + "%\nTime to Destination: " + (10 - (1*(GameStateManager.Instance.dayCount%10)));
         }
         UpdateUI();
         if(GameStateManager.Instance.dayCount == 7 && SpecialEvent)
         {
             SpecialEvent = false;
+            GameStateManager.Instance.SkyboxGlitchSeen = true;
             GameStateManager.Instance.GlitchSkyBox();
         }
     }
@@ -178,6 +185,7 @@ public class HelmetUIManager : MonoBehaviour
     public void WriteInJournal()
     {
         journalWritten = true;
+        AudioManager.Instance.Play("sfx_scribble", transform, 1.0f, false);
         TaskList[TaskList.Count - 1].SetActive(false);
         if (journalWritten && helmetReturned)
         {
@@ -249,6 +257,7 @@ public class HelmetUIManager : MonoBehaviour
     public void SetMeditationActive()
     {
         TaskList[TaskList.Count - 4].SetActive(true);
+        AudioManager.Instance.Play("sfx_meditation", transform, 1.0f, false);
     }
     
 }

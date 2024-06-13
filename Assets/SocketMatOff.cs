@@ -17,6 +17,7 @@ public class SocketMatOff : MonoBehaviour
     public void TurnOffMat()
     {
         meshRenderer.SetMaterials(emptyList);
+        AudioManager.Instance.Play("sfx_spark", transform, 1.0f, false);
     }
 
     public void TurnOnMat()

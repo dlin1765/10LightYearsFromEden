@@ -22,8 +22,9 @@ public class DayEventManager : MonoBehaviour
         {
             if (GameStateManager.Instance.dayCount == 5)
             {
+                GameStateManager.Instance.FuelCellDoorHint = true;
                 SlidingDoor.transform.localPosition = openPosition;
-                Plant.transform.GetChild(0).localPosition = new Vector3(0, 0.5f, 1f);
+                Plant.transform.GetChild(0).localPosition = new Vector3(0, 1f, 0f);
                 Plant.transform.Rotate(Vector3.right * 90f, Space.Self);
                 Plant.transform.localPosition = Plant.transform.localPosition + new Vector3(0f, 0.5f, 0f);
             }
@@ -52,6 +53,7 @@ public class DayEventManager : MonoBehaviour
 
     public void LooseDoorTaken()
     {
+        AudioManager.Instance.Play("sfx_meditation", transform, 1.0f, false);
         StartCoroutine(DestroyAfterABit(LooseWall));
         HelmetUIManager.Instance.PoisonDiscovered = true;
     }

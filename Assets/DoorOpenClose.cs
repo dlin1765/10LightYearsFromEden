@@ -29,6 +29,14 @@ public class DoorOpenClose : MonoBehaviour
 
     private IEnumerator StartOpenCloseDoor(float target)
     {
+        if(target <= 1.5f)
+        {
+            AudioManager.Instance.Play("sfx_doorclose", transform, 1.0f, false);
+        }
+        else
+        {
+            AudioManager.Instance.Play("sfx_dooropen", transform, 1.0f, false);
+        }
         float timer = 0;
         float duration = 1.5f;
         Vector3 startPos = transform.localPosition;

@@ -12,6 +12,8 @@ public class ConsoleScript : MonoBehaviour
     private bool SystemOrNav = true;
 
     public bool isVentOn = true;
+    public bool thrustersOn = true;
+    public bool heatOn = true;
     void Start()
     {
         consoleCanvas = transform.GetChild(0).gameObject;
@@ -35,6 +37,8 @@ public class ConsoleScript : MonoBehaviour
 
     public void ClickSystemButton()
     {
+        GameStateManager.Instance.ClickedSystemButton = true;
+        AudioManager.Instance.Play("sfx_consoleon", transform, 1.0f, false);
         if (SystemOrNav)
         {
             UIElements[0].transform.GetComponentInChildren<TextMeshProUGUI>().text = "Navigation";
@@ -60,12 +64,41 @@ public class ConsoleScript : MonoBehaviour
 
     public void ToggleVentilation()
     {
+        if (isVentOn)
+        {
+            AudioManager.Instance.Play("sfx_switchoff", transform, 1.0f, false);
+        }
+        else
+        {
+            AudioManager.Instance.Play("sfx_switchon", transform, 1.0f, false);
+        }
         isVentOn = !isVentOn;
+
     }
 
     public void ToggleThrusters()
     {
         //turn off thrusters briefly and then turn them back on 
+        if (thrustersOn)
+        {
+            AudioManager.Instance.Play("sfx_switchoff", transform, 1.0f, false);
+        }
+        else
+        {
+            AudioManager.Instance.Play("sfx_switchon", transform, 1.0f, false);
+        }
+    }
+
+    public void ToggleHeat()
+    {
+        if (thrustersOn)
+        {
+            AudioManager.Instance.Play("sfx_switchoff", transform, 1.0f, false);
+        }
+        else
+        {
+            AudioManager.Instance.Play("sfx_switchon", transform, 1.0f, false);
+        }
     }
 
     // Update is called once per frame

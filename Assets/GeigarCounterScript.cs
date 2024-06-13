@@ -9,6 +9,9 @@ public class GeigarCounterScript : MonoBehaviour
     public GameObject RadTextObj;
     private TextMeshProUGUI RadCounterText;
     private GameObject counterCanvas;
+    GameObject currentLoop = null;
+
+    private Coroutine Flicker = null;
     void Start()
     {
         counterCanvas = transform.GetChild(1).gameObject;
@@ -23,8 +26,10 @@ public class GeigarCounterScript : MonoBehaviour
 
     public void TurnOnScreen()
     {
+        GameStateManager.Instance.GeigarCounterDiscovered = true;
+        currentLoop = AudioManager.Instance.LerpLoopable("sfx_geigarcounter", transform, 0.0f);
         counterCanvas.SetActive(true);
-        StartCoroutine(FlickerRadVals());
+        Flicker = StartCoroutine(FlickerRadVals());
     }
 
     private IEnumerator FlickerRadVals()
@@ -38,7 +43,11 @@ public class GeigarCounterScript : MonoBehaviour
 
     public void TurnOffScreen()
     {
-        StopAllCoroutines();
+        if(Flicker != null)
+        {
+            StopCoroutine(Flicker);
+        }
+        StartCoroutine(currentLoop.GetComponent<Loopable>().LerpDestroySelf(0.0f, 0.1f));
         counterCanvas.SetActive(false);
     }
 

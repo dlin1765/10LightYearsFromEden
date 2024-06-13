@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4058733271520829912}
   - component: {fileID: 4583879495660708527}
-  - component: {fileID: 5501458116222989168}
+  - component: {fileID: 5249100924515431333}
   m_Layer: 0
-  m_Name: sfx_TempIntroVoiceline
+  m_Name: sfx_explosioncoming
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,11 +43,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ff5372fcc38c26d4eb73031ea1864d4f, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 84ce7147372056c44b1f2c397abeff7c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.69
+  m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -129,7 +129,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5501458116222989168
+--- !u!114 &5249100924515431333
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,6 +138,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5894434389066247301}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e10da05c7a480be488e38ab466e91323, type: 3}
+  m_Script: {fileID: 11500000, guid: 6d65d667b5562fd438da92bdd9ba1744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volume: 1

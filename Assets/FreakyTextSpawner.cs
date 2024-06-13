@@ -7,7 +7,7 @@ public class FreakyTextSpawner : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private GameObject FreakyTxt, UICanvas;
 
-
+    GameObject currentLoop = null;
     private List<string> Options = new List<string>();
     void Start()
     {
@@ -22,13 +22,18 @@ public class FreakyTextSpawner : MonoBehaviour
     {
         if (HelmetUIManager.Instance.PoisonDiscovered)
         {
+            GameStateManager.Instance.SeenHallucination = true;
             StartCoroutine(HelmetHallucination());
             AlarmManager.Instance.StartLightsOff(0, true);
+            GameStateManager.Instance.TurnOffShipSound();
         }
     }
     //Instantiate(Object original, Vector3 position, Quaternion rotation, Transform parent); 
     private IEnumerator HelmetHallucination()
     {
+        AudioManager.Instance.Play("sfx_powerdown", PlayerManager.Instance.transform, 1.0f, false);
+        yield return new WaitForSeconds(2f);
+        currentLoop = AudioManager.Instance.LerpLoopable("sfx_fnafsound", transform, 0.0f);
         int i = 0;
         while (i < 9)
         {
@@ -36,7 +41,12 @@ public class FreakyTextSpawner : MonoBehaviour
             Instantiate(FreakyTxt, UICanvas.transform);
             i += 1;
         }
+        StartCoroutine(currentLoop.GetComponent<Loopable>().LerpDestroySelf(0.0f, 0.1f));
         yield return new WaitForSeconds(1f);
         AlarmManager.Instance.StartLightsOff(0, false);
+        AudioManager.Instance.Play("sfx_powerup", PlayerManager.Instance.transform, 1.0f, false);
+        GameStateManager.Instance.TurnOnShipSound();
+        AudioManager.Instance.Play("sfx_lightsflickeron", PlayerManager.Instance.transform, 1.0f, false);
+
     }
 }

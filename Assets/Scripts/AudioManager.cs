@@ -57,6 +57,22 @@ public class AudioManager : MonoBehaviour
             source.volume = volume;
         }
     }
+
+    public GameObject LerpLoopable(string name, Transform parent, float delay)
+    {
+        GameObject audio = System.Array.Find(soundEffects, sound => sound.name == name);
+
+        if (audio == null)
+        {
+            Debug.Log("Loopable: " + name + " not found");
+            return null;
+        }
+
+        Loopable loopable = Instantiate(audio, parent, false).GetComponent<Loopable>();
+        StartCoroutine(loopable.Lerp(loopable.volume, delay));
+
+        return loopable.gameObject;
+    }
     /*
     public IEnumerator Play(string name, Transform parent, float delay)
     {
