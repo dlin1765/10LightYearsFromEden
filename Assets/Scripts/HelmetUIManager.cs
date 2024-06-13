@@ -15,10 +15,16 @@ public class HelmetUIManager : MonoBehaviour
     public bool journalWritten = false;
     public bool helmetReturned = true;
 
+    private bool SpecialEvent = true;
+    public bool PoisonDiscovered = false;
+
+
     [SerializeField] private List<GameObject> UIElements, TaskList;
     [SerializeField] private GameObject TaskElements;
     [SerializeField] private GameObject ConsoleObj;
     [SerializeField] private GameObject VentCheck;
+
+    private List<string> AvoidancePhrases = new List<string>();
 
     private TextMeshProUGUI ConsoleText;
     private ConsoleScript ConsoleUI;
@@ -42,6 +48,10 @@ public class HelmetUIManager : MonoBehaviour
             if(GameStateManager.Instance.dayCount == 3)
             {
                 UIElements[0].GetComponent<TextMeshProUGUI>().text = "Day " + 23710 + ":" + "\nTasks";
+            }
+            else if(PoisonDiscovered)
+            {
+                UIElements[0].GetComponent<TextMeshProUGUI>().text = "Day " + GameStateManager.Instance.dayCount + ":" + "\nTasks\n"+AvoidancePhrases[Random.Range(0, AvoidancePhrases.Count-1)];
             }
             else
             {
@@ -78,6 +88,14 @@ public class HelmetUIManager : MonoBehaviour
         }
         ConsoleText = ConsoleObj.GetComponent<TextMeshProUGUI>();
         ConsoleUI = VentCheck.GetComponent<ConsoleScript>();
+
+        AvoidancePhrases.Add("Everything is okay.");
+        AvoidancePhrases.Add("You'll be fine.");
+        AvoidancePhrases.Add("You're safe here.");
+        AvoidancePhrases.Add("You just have to keep going");
+        AvoidancePhrases.Add("The Helmet will keep you safe.");
+        AvoidancePhrases.Add("The Helmet will keep you safe.");
+        AvoidancePhrases.Add("The Helmet will keep you safe.");
     }
 
     // Update is called once per frame
@@ -124,6 +142,11 @@ public class HelmetUIManager : MonoBehaviour
             ConsoleText.text = "Console:\nProgress to Eden: " + (0 + 10 * (GameStateManager.Instance.dayCount % 10)) + "%\nTime to Destination: " + (10 - (1*(GameStateManager.Instance.dayCount%10)));
         }
         UpdateUI();
+        if(GameStateManager.Instance.dayCount == 7 && SpecialEvent)
+        {
+            SpecialEvent = false;
+            GameStateManager.Instance.GlitchSkyBox();
+        }
     }
 
 

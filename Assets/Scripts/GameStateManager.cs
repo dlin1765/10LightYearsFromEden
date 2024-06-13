@@ -99,4 +99,28 @@ public class GameStateManager : MonoBehaviour
     {
         
     }
+
+    public void GlitchSkyBox()
+    {
+        StartCoroutine(StartGlitch());
+    }
+
+    private IEnumerator StartGlitch()
+    {
+        AlarmManager.Instance.StartLightsOff(0f, true);
+        // play power down sound
+        yield return new WaitForSeconds(3f);
+        // play helmet glitch sound 
+        int i = 0;
+        while(i < 10)
+        {
+            i += 1;
+            FakeSkybox.SetActive(false);
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0.1f, 0.3f));
+            FakeSkybox.SetActive(true);
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0.1f, 0.3f));
+        }
+        AlarmManager.Instance.StartLightsOff(0f, false);
+        //stop helmet glitch sound and play power up sound
+    }
 }

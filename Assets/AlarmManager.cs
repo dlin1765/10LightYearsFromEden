@@ -75,4 +75,19 @@ public class AlarmManager : MonoBehaviour
             StopCoroutine(AlarmRoutine);
         }
     }
+
+    public Coroutine StartLightsOff(float duration, bool off = true)
+    {
+        Coroutine a = StartCoroutine(LightsOff(duration, off));
+        return a;
+    }
+
+    private IEnumerator LightsOff(float duration, bool off = true)
+    {
+        foreach (LightFlash x in LightObjects)
+        {
+            x.LightOffOrOn(off);
+        }
+        yield return new WaitForSeconds(duration);
+    }
 }

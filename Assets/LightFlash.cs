@@ -24,6 +24,30 @@ public class LightFlash : MonoBehaviour
         StartCoroutine(Flashing());
     }
 
+    public void LightOffOrOn(bool off = true)
+    {
+        if(off)
+        {
+            myLight.intensity = 0f;
+        }
+        else
+        {
+            myLight.intensity = Intensity;
+        }
+    }
+
+    public void LightOn()
+    {
+        myLight.intensity = Intensity;
+    }
+
+    private IEnumerator Flicker(float duration)
+    {
+        myLight.intensity = 0f;
+        yield return new WaitForSeconds(duration);
+        myLight.intensity = Intensity;
+    }
+
     private IEnumerator Flashing()
     {
         myLight.color = new Color32(255, 0, 0, 255);
