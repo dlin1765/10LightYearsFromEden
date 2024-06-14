@@ -33,7 +33,7 @@ public class FreakyText : MonoBehaviour
                 myText.text = "they're lying";
                 break;
         }
-        transform.localPosition = new Vector3(Random.Range(-0.8f, 0.8f), Random.Range(-0.8f, 0.8f), -182f);
+        transform.localPosition = new Vector3(Random.Range(-0.8f, 0.8f), Random.Range(-0.8f, 0.5f), 1f);
         transform.Rotate(Vector3.forward * Random.Range(-45f, 45f));
         StartCoroutine(StartDestroy());
     }

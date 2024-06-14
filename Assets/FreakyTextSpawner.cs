@@ -20,6 +20,7 @@ public class FreakyTextSpawner : MonoBehaviour
 
     public void StartSpawningText()
     {
+        
         if (HelmetUIManager.Instance.PoisonDiscovered)
         {
             GameStateManager.Instance.SeenHallucination = true;
@@ -27,6 +28,12 @@ public class FreakyTextSpawner : MonoBehaviour
             AlarmManager.Instance.StartLightsOff(0, true);
             GameStateManager.Instance.TurnOffShipSound();
         }
+        /*
+        GameStateManager.Instance.SeenHallucination = true;
+        StartCoroutine(HelmetHallucination());
+        AlarmManager.Instance.StartLightsOff(0, true);
+        GameStateManager.Instance.TurnOffShipSound();
+        */
     }
     //Instantiate(Object original, Vector3 position, Quaternion rotation, Transform parent); 
     private IEnumerator HelmetHallucination()
@@ -35,7 +42,7 @@ public class FreakyTextSpawner : MonoBehaviour
         yield return new WaitForSeconds(2f);
         currentLoop = AudioManager.Instance.LerpLoopable("sfx_fnafsound", transform, 0.0f);
         int i = 0;
-        while (i < 9)
+        while (i < 16)
         {
             yield return new WaitForSeconds(Random.Range(0.2f, 0.4f));
             Instantiate(FreakyTxt, UICanvas.transform);

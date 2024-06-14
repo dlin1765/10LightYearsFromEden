@@ -38,7 +38,7 @@ public class OminiousVoice : MonoBehaviour
             }
             else if(day == 8)
             {
-                float duration = AudioManager.Instance.Play("sfx_WearandTear", transform, 1f, true);
+                float duration = AudioManager.Instance.Play("sfx_WearAndTear", transform, 1f, true);
                 StartCoroutine(WaitForVoiceline(duration));
             }
             else

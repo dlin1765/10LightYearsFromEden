@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -71,6 +72,7 @@ public class GameStateManager : MonoBehaviour
             case GameState.FinalCutscene:
                 break;
             case GameState.GameOverBad:
+                SceneManager.LoadScene("VRTemplate");
                 break;
         }
         gameStateChanged?.Invoke(targetGameState);
