@@ -144,6 +144,10 @@ public class HelmetUIManager : MonoBehaviour
         }
         else
         {
+            if(GameStateManager.Instance.dayCount % 10 == 0)
+            {
+                GameStateManager.Instance.PlanetReset = true;
+            }
             AudioManager.Instance.Play("sfx_consoleon", transform, 1.0f, false);
             ConsoleText.text = "Console:\nProgress to Eden: " + (0 + 10 * (GameStateManager.Instance.dayCount % 10)) + "%\nTime to Destination: " + (10 - (1*(GameStateManager.Instance.dayCount%10)));
         }

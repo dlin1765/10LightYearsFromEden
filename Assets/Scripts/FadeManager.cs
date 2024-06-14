@@ -73,7 +73,7 @@ public class FadeManager : MonoBehaviour
         while (timer < duration)
         {
             timer += Time.deltaTime;
-            BlackImage.color = new Color(0f, 0f, 0f, Mathf.Lerp(0f, 0.7f, timer / duration));
+            BlackImage.color = new Color(0f, 0f, 0f, Mathf.Lerp(0f, 0.8f, timer / duration));
             yield return null;
         }
     }
@@ -84,7 +84,7 @@ public class FadeManager : MonoBehaviour
         while (timer < duration)
         {
             timer += Time.deltaTime;
-            BlackImage.color = new Color(0f, 0f, 0f, Mathf.Lerp(.7f, 1f, timer / duration));
+            BlackImage.color = new Color(0f, 0f, 0f, Mathf.Lerp(.8f, 1f, timer / duration));
             yield return null;
         }
     }

@@ -38,7 +38,7 @@ public class PlayerManager : MonoBehaviour
     public void StartFloating()
     {
         this.gameObject.AddComponent<Rigidbody>().useGravity = false;
-        StartCoroutine(SitDown());
+        //StartCoroutine(SitDown());
     }
     private IEnumerator SitDown()
     {

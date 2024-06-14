@@ -19,6 +19,7 @@ public class NotebookScript : MonoBehaviour
     private bool HelmetAvoidance = false;
     private bool PoisonGasHint = false;
     private bool DayGlitch = false;
+    private bool PlanetResetSeen = false;
 
 
     void Start()
@@ -116,6 +117,13 @@ public class NotebookScript : MonoBehaviour
             }
             HelmetHallucination = true;
         }
+        if(!PlanetResetSeen && GameStateManager.Instance.PlanetReset)
+        {
+            PlanetResetSeen = true;
+            nothingToReport = false;
+            additionalNotes += "There has to be some kind of mistake, I'm back where I started\n";
+        }
+
         if((GeigarHint || FuelDoorHint) && PoisonGasHint && HelmetHallucination && HelmetAvoidance)
         {
             nothingToReport = false;

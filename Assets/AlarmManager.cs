@@ -8,7 +8,8 @@ public class AlarmManager : MonoBehaviour
     public static AlarmManager Instance;
     public bool alarmHappening = false;
     [SerializeField] private List<LightFlash> LightObjects;
-    GameObject currentLoop = null; 
+    GameObject currentLoop = null;
+    GameObject loop = null;
     private Coroutine AlarmRoutine = null;
 
     private void Awake()
@@ -31,6 +32,7 @@ public class AlarmManager : MonoBehaviour
     }
     public void StartAlarm(bool isLethal)
     {
+        Debug.Log("started alarm");
         if (!alarmHappening)
         {
             alarmHappening = true;
@@ -38,12 +40,12 @@ public class AlarmManager : MonoBehaviour
             {
                 x.AlarmMode();
             }
+            currentLoop = AudioManager.Instance.LerpLoopable("sfx_normalalarm", transform, 0.0f); // copy paste this line when you want a loopable sound to play 
+            if (isLethal)
+            {
+                AudioManager.Instance.Play("sfx_gashissing", transform.GetChild(3), 1.0f, false);
+            }
             AlarmRoutine = StartCoroutine(AlarmFlashing(isLethal));
-        }
-        currentLoop = AudioManager.Instance.LerpLoopable("sfx_normalalarm", transform, 0.0f); // copy paste this line when you want a loopable sound to play 
-        if (isLethal)
-        {
-            AudioManager.Instance.Play("sfx_gashissing", transform.GetChild(3), 1.0f, false);
         }
     }
 
@@ -66,6 +68,7 @@ public class AlarmManager : MonoBehaviour
             // start extra audio here 
             StartCoroutine(currentLoop.GetComponent<Loopable>().LerpDestroySelf(0.0f, 0.1f));
             currentLoop = AudioManager.Instance.LerpLoopable("sfx_alarm", transform, 0.0f);
+            loop = AudioManager.Instance.LerpLoopable("sfx_electricalfailure", transform, 0.0f);
             HelmetUIManager.Instance.SetMeditationActive();
         }
     }
@@ -88,6 +91,12 @@ public class AlarmManager : MonoBehaviour
     {
         Coroutine a = StartCoroutine(LightsOff(duration, off));
         return a;
+    }
+
+    public void TurnOffAudios()
+    {
+        StartCoroutine(currentLoop.GetComponent<Loopable>().LerpDestroySelf(0.0f, 0.0f));
+        StartCoroutine(loop.GetComponent<Loopable>().LerpDestroySelf(0.0f, 0.0f));
     }
 
     private IEnumerator LightsOff(float duration, bool off = true)

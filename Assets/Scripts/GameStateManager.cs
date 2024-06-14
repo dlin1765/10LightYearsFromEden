@@ -23,6 +23,7 @@ public class GameStateManager : MonoBehaviour
     public bool ClickedSystemButton = false;
     public bool HelmetReassurances = false;
     public bool HelmetDayGlitch = false;
+    public bool PlanetReset = false;
 
     GameObject currentLoop = null;
     public enum GameState
@@ -64,6 +65,7 @@ public class GameStateManager : MonoBehaviour
                 FadeManager.Instance.StartFadeToBlack(7f);
                 break;
             case GameState.MeditationCutscene:
+                HitboxScript.Instance.gameObject.SetActive(false);
                 StartCoroutine(MeditationCutscene());
                 break;
             case GameState.FinalCutscene:
@@ -86,7 +88,7 @@ public class GameStateManager : MonoBehaviour
     }
     public void TurnOnShipSound()
     {
-        currentLoop = AudioManager.Instance.LerpLoopable("sfx_shipambience", PlayerManager.Instance.transform, 1.0f);
+        currentLoop = AudioManager.Instance.LerpLoopable("sfx_shipambience", PlayerManager.Instance.transform, 0.5f);
     }
 
     private IEnumerator MeditationCutscene()
@@ -96,20 +98,51 @@ public class GameStateManager : MonoBehaviour
         PlayerManager.Instance.TurnOffMovement();
         PlayerManager.Instance.StartFloating();
         HelmetUIManager.Instance.SetTasksNotActive();
+        float duration = AudioManager.Instance.Play("sfx_Meditation1", PlayerManager.Instance.transform, 1.0f, true);
+        yield return new WaitForSeconds(duration);
+        duration = AudioManager.Instance.Play("sfx_MeditationWarning1", PlayerManager.Instance.transform, 1.0f, true);
+        yield return new WaitForSeconds(duration);
+        duration = AudioManager.Instance.Play("sfx_Meditation2", PlayerManager.Instance.transform, 1.0f, true);
+        yield return new WaitForSeconds(duration);
+        duration = AudioManager.Instance.Play("sfx_MeditationWarning2", PlayerManager.Instance.transform, 1.0f, true);
+        yield return new WaitForSeconds(duration);
+        duration = AudioManager.Instance.Play("sfx_Meditation3", PlayerManager.Instance.transform, 1.0f, true);
+        GameObject loop = AudioManager.Instance.LerpLoopable("sfx_explosioncoming", PlayerManager.Instance.transform, 3f);
+        yield return new WaitForSeconds(duration);
+        duration = AudioManager.Instance.Play("sfx_Meditation4", PlayerManager.Instance.transform, 1.0f, true);
+        GameObject loop2 = AudioManager.Instance.LerpLoopable("sfx_MeditationWarningLoop", PlayerManager.Instance.transform, 3f);
+        yield return new WaitForSeconds(duration);
+        duration = AudioManager.Instance.Play("sfx_MeditationWarning3", PlayerManager.Instance.transform, 1.0f, true);
+        yield return new WaitForSeconds(duration);
+        duration = AudioManager.Instance.Play("sfx_MeditationWarningCount", PlayerManager.Instance.transform, 1.0f, true);
+        //GameObject elecLoop = AudioManager.Instance.LerpLoopable("sfx_electricalfailure", PlayerManager.Instance.transform, 1.0f);
         yield return new WaitForSeconds(10f);
-        Debug.Log("EXPLOSION");
+        StartCoroutine(currentLoop.GetComponent<Loopable>().LerpDestroySelf(0.0f, 0.0f));
+        StartCoroutine(loop.GetComponent<Loopable>().LerpDestroySelf(0.0f, 0.0f));
+        StartCoroutine(loop2.GetComponent<Loopable>().LerpDestroySelf(0.0f, 0.0f));
+        AlarmManager.Instance.TurnOffAudios();
         explosionShip.SetActive(true);
         FadeManager.Instance.OtherHalfFade();
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(9f);
+        explosionShip.SetActive(false);
+        yield return new WaitForSeconds(1f);
         PlayerManager.Instance.SetPlayerFinal();
         ChangeGameState(GameState.FinalCutscene);
         FadeManager.Instance.StartFadeFromBlack(5f);
+        GameObject loop3 = AudioManager.Instance.LerpLoopable("sfx_spaceambience", PlayerManager.Instance.transform, 3f);
         yield return new WaitForSeconds(5f);
         PlanetScaler.Instance.StartPlanetFade();
         yield return new WaitForSeconds(10f);
         FakeSkybox.GetComponent<FadeSkyBox>().StartFadeOutSkybox();
-
+        StartCoroutine(loop3.GetComponent<Loopable>().LerpDestroySelf(0.0f, 0.0f));
+        GameObject loop4 = AudioManager.Instance.LerpLoopable("sfx_music", PlayerManager.Instance.transform, 3f);
+        yield return new WaitForSeconds(5f);
         // lower volume of sounds
+    }
+
+    public void PlayVoiceline(string name)
+    {
+
     }
 
     // Update is called once per frame
