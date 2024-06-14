@@ -23,27 +23,27 @@ public class OminiousVoice : MonoBehaviour
             if (day == 1)
             {
                 Debug.Log("Playing audio");
-                float duration = AudioManager.Instance.Play("sfx_Voiceline1", transform, 1f, false);
+                float duration = AudioManager.Instance.Play("sfx_Voiceline1", transform, 1f, true);
                 StartCoroutine(WaitForVoiceline(duration));
             }
             else if(day == 2)
             {
-                float duration = AudioManager.Instance.Play("sfx_FriendlyReminder", transform, 1f, false);
+                float duration = AudioManager.Instance.Play("sfx_FriendlyReminder", transform, 1f, true);
                 StartCoroutine(WaitForVoiceline(duration));
             }
             else if(day == 5)
             {
-                float duration = AudioManager.Instance.Play("sfx_Turbulence", transform, 1f, false);
+                float duration = AudioManager.Instance.Play("sfx_Turbulence", transform, 1f, true);
                 StartCoroutine(WaitForVoiceline(duration));
             }
             else if(day == 8)
             {
-                float duration = AudioManager.Instance.Play("sfx_WearandTear", transform, 1f, false);
+                float duration = AudioManager.Instance.Play("sfx_WearandTear", transform, 1f, true);
                 StartCoroutine(WaitForVoiceline(duration));
             }
             else
             {
-                float duration = AudioManager.Instance.Play("sfx_VoicelineGeneral", transform, 1f, false);
+                float duration = AudioManager.Instance.Play("sfx_VoicelineGeneral", transform, 1f, true);
                 StartCoroutine(WaitForVoiceline(duration));
             }
         }
