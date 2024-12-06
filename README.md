@@ -1,4 +1,4 @@
 A short VR puzzle/story game inspired by Portal, Outer Wilds, and Inscryption. 
 
-[![demo loading...](https://img.youtube.com/vi/https://youtu.be/-_aCLRZ51Ys?si=P_BfG8WrmqqSYRPk/0.jpg)](https://youtu.be/-_aCLRZ51Ys?si=P_BfG8WrmqqSYRPk)
 
+[![demo unavailable](https://img.youtube.com/vi/-_aCLRZ51Ys?si=XlDgNQ08tbdKRvjt/0.jpg)](https://www.youtube.com/watch?v=-_aCLRZ51Ys?si=XlDgNQ08tbdKRvjt)
