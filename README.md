@@ -15,4 +15,16 @@
 
 I used the Unity XR Toolkit to allow for realistic object interactions and utilized the physics engine for the last scene with the exploding ship.
 
+# 🛠 Installation & Set Up
 
+<div>
+  To play the game, you need to have 
+  <a href = 'https://unity.com/download' target="_blank" rel="noopener noreferrer">
+    Unity
+  </a>
+  version 2022.3.15 installed 
+  <p>&nbsp;</p>
+  Download the project files and open Unity Hub. Click add project from disk, and select the folder where you downloaded the project files. Once the project has opened, you may either play it using the editor, or create a build for yourself by navigating to File -> Build Settings -> Build and Run.
+  <p>&nbsp;</p>
+  Double click the executable file that was made and the game should launch normally
+</div>
