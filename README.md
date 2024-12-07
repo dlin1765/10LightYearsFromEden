@@ -13,7 +13,7 @@
 
 # How I made it
 
-I used the Unity XR Toolkit to allow for realistic object interactions and utilized the physics engine for the last scene with the exploding ship.
+I used the Unity XR Toolkit to allow for realistic object interactions and utilized the physics engine for the last scene with the exploding ship. Assets were found on the Unity asset store and the meteors were created using the Unity Particle System and a custom material.
 
 # 🛠 Installation & Set Up
 
